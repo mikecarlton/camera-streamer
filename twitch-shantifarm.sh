@@ -31,7 +31,9 @@ RTSP_VIDEO_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera2.carltons.us:88/videoMain"
 VIDEO_OPTIONS='-vcodec copy'  # the input stream is already h264, so just copy it through
 AUDIO_OPTIONS='-acodec aac'   # need to transcode the audio, ulaw isn't supported by twitch
 LOG_OPTIONS='-loglevel fatal' # fatal, error, warning, quiet
-TRANSPORT_OPTIONS='-rtsp_transport tcp' # TCP transport is critical to avoid dropouts
+
+# TCP transport is critical to avoid dropouts, stimeout handles camera timeout (in microseconds)
+TRANSPORT_OPTIONS='-rtsp_transport tcp -stimeout 5000000'
 
 # note that ffmpeg has a tendency to periodically exit (typically with error code 1)
 # we also force a periodic timeout to molify twitch
