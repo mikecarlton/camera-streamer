@@ -5,32 +5,32 @@
 # Released under terms of the MIT License:
 #   http://www.opensource.org/licenses/mit-license.php
 #
-# Place this file in /usr/local/bin/twitch-shantifarm.sh
+# Place this file in /usr/local/bin/twitch-pamcarlton.sh
 
 # import STREAM_KEY, CAM_USER, CAM_PASS
 # .twitch_env should look like:
 # export STREAM_KEY=live_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 # export CAM_USER=XXXXX
 # export CAM_PASS=XXXXX
-source ${HOME}/.twitch-shantifarm.env
+source ${HOME}/.twitch-pamcarlton.env
 
 # optional:
 # BANDWIDTH_TEST='?bandwidthtest=true'
-# LOGFILE="log.twitch-shantifarm.$(date +%F-%T)"
+# LOGFILE="log.twitch-pamcarlton.$(date +%F-%T)"
 
 STREAM_URL="rtmp://live.twitch.tv/app/$STREAM_KEY$BANDWIDTH_TEST"
 
 # designed for
-# FDT 8903
-# primary stream:
-#   path /11
-#   h.264, 1280x960, ~12 fps, ~250 kbps (can be configured in web UI)
-#   G711
+# Foscam R2
+#   h264 1280x720 @ 15 fps
+#   PCM ulaw 8kh 16b
+# consumes about 250 kbps
 
-RTSP_VIDEO_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera.carltons.us:554/11"
+RTSP_VIDEO_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera2.carltons.us:88/videoMain"
+# RTSP_AUDIO_ONLY_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera2.carltons.us:88/audio"
 
 VIDEO_OPTIONS='-vcodec copy'  # the input stream is already h264, so just copy it through
-AUDIO_OPTIONS='-acodec copy'  # the input stream is already G711, so just copy it through
+AUDIO_OPTIONS='-acodec aac'   # need to transcode the audio, ulaw isn't supported by twitch
 LOG_OPTIONS='-loglevel fatal' # fatal, error, warning, quiet
 
 # TCP transport is critical to avoid dropouts, stimeout handles camera timeout (in microseconds)

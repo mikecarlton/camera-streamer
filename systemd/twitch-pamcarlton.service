@@ -1,0 +1,27 @@
+#
+# Copyright 2019 Mike Carlton
+#
+# Released under terms of the MIT License:
+#   http://www.opensource.org/licenses/mit-license.php
+#
+# Place this file in /etc/systemd/system
+# Enable it with:
+#    systemctl enable --now twitch-shantifarm.service
+# If you make changes, copy the updated file to /etc/systemd/system and do:
+#   systemctl daemon-reload ; systemctl restart twitch-shantifarm.service
+
+[Unit]
+Description=Transcode video from IP camera to Twitch
+After=network.target
+
+[Service]
+Type=simple
+User=mike
+Group=mike
+Restart=always
+RestartSec=15
+ExecStart=/usr/local/bin/twitch-pamcarlton.sh
+
+[Install]
+WantedBy=multi-user.target
+
