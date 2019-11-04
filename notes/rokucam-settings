@@ -1,0 +1,33 @@
+
+Here are the ffmpeg settings that Rokucam uses to broadcast h.264
+
+For streaming to the Roku, you need to use HLS format, e.g.
+    ffmpeg -loglevel error -thread_queue_size 512 -rtsp_transport +udp+tcp -rtsp_flags prefer_tcp \
+        -i rtsp://admin:alexnoah@192.168.1.20:554/11 \
+        -vcodec copy -codec:a aac -f hls -hls_flags delete_segments \
+        /dev/shm/yJ9CirWcoq.m3u8
+
+For streaming to Youtube Live:
+    ffmpeg -loglevel error -f lavfi -i anullsrc -thread_queue_size 512 -rtsp_transport +udp+tcp -rtsp_flags prefer_tcp \
+        -i rtsp://admin:alexnoah@camera-kids.carltons.us:554/11 \
+        -vcodec copy -codec:a aac -f flv -r 25 -g 50 \
+        rtmp://a.rtmp.youtube.com/live2/9958-p79x-stka-2085
+
+For streaming to Twitch:
+    ffmpeg -loglevel error -f lavfi -i anullsrc -thread_queue_size 512 -rtsp_transport +udp+tcp -rtsp_flags prefer_tcp \
+        -i rtsp://admin:alexnoah@camera-stall.carltons.us:554/11 \
+        -vcodec copy -codec:a aac -f flv -r 25 -g 50 \
+        rtmp://live.twitch.tv/app/live_201975084_2MuAzhhrDWuo4lT4mTCUJC2uKCmL5q
+
+For comparison, our Twitch settings are
+    /usr/bin/ffmpeg -nostdin -loglevel fatal -copytb 1 -rtsp_transport tcp -stimeout 5000000 \
+        -i rtsp://admin:alexnoah@camera-stall.carltons.us:554/11 \
+        -f flv -acodec copy -vcodec copy \
+        rtmp://live.twitch.tv/app/live_201975084_2MuAzhhrDWuo4lT4mTCUJC2uKCmL5q
+
+ffmpeg muxer documentation:
+    flv: http://ffmpeg.org/ffmpeg-formats.html#flv
+    hls: http://ffmpeg.org/ffmpeg-formats.html#hls-2
+
+ffmpeg device documentation:
+    lavfi: https://ffmpeg.org/ffmpeg-devices.html#lavfi
