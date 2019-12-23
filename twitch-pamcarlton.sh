@@ -26,7 +26,7 @@ STREAM_URL="rtmp://live.twitch.tv/app/$STREAM_KEY$BANDWIDTH_TEST"
 #   PCM ulaw 8kh 16b
 # consumes about 250 kbps
 
-RTSP_VIDEO_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera2.carltons.us:88/videoMain"
+RTSP_VIDEO_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera-outdoors.carltons.us:88/videoMain"
 # RTSP_AUDIO_ONLY_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera2.carltons.us:88/audio"
 
 VIDEO_OPTIONS='-vcodec copy'  # the input stream is already h264, so just copy it through
