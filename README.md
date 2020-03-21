@@ -17,7 +17,7 @@ Primarily h264 to twitch
    
    ```
    for i in systemd/twitch-*.service ; do
-     cp $i /usr/local/bin
+     cp $i /etc/systemd/system
    done
    ```
 3. Enable the systemd services:
