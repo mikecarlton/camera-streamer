@@ -21,16 +21,21 @@ source ${HOME}/.twitch-shantifarm.env
 STREAM_URL="rtmp://live.twitch.tv/app/$STREAM_KEY$BANDWIDTH_TEST"
 
 # designed for
-# FDT 8903
+# Yoluke P3-5MP-RWF
 # primary stream:
 #   path /11
-#   h.264, 1280x960, ~12 fps, ~250 kbps (can be configured in web UI)
+#   h.264, 2560x1440, ~15 fps, ~500 kbps (can be configured in web UI)
 #   G711
 
-RTSP_VIDEO_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera-stall.carltons.us:554/11"
+HOST=camera-stall.carltons.us
+PORT=554
+VIDEO_PATH=11
+
+RTSP_VIDEO_URL="rtsp://${CAM_USER}:${CAM_PASS}@${HOST}:${PORT}/${VIDEO_PATH}"
 
 VIDEO_OPTIONS='-vcodec copy'  # the input stream is already h264, so just copy it through
-AUDIO_OPTIONS='-acodec copy'  # the input stream is already G711, so just copy it through
+# AUDIO_OPTIONS='-acodec copy'  # the input stream is already G711, so just copy it through
+AUDIO_OPTIONS='-an'           # don't send audio to twitch
 LOG_OPTIONS='-loglevel fatal' # fatal, error, warning, quiet
 
 # TCP transport is critical to avoid dropouts, stimeout handles camera timeout (in microseconds)
