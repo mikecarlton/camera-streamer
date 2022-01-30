@@ -27,7 +27,7 @@ STREAM_URL="rtmp://live.twitch.tv/app/$STREAM_KEY$BANDWIDTH_TEST"
 #   h.264, 1280x960, ~12 fps, ~250 kbps (can be configured in web UI)
 #   G711
 
-RTSP_VIDEO_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera-stall.carltons.us:554/11"
+RTSP_VIDEO_URL="rtsp://${CAM_USER}:${CAM_PASS}@camera.carltons.us:554/11"
 
 VIDEO_OPTIONS='-vcodec copy'  # the input stream is already h264, so just copy it through
 AUDIO_OPTIONS='-acodec copy'  # the input stream is already G711, so just copy it through
